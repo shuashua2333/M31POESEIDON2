@@ -1,0 +1,86 @@
+    Checking p3-mersenne-31 v0.4.2 (G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\mersenne-31)
+warning: unused imports: `Field` and `PrimeCharacteristicRing`
+ --> mersenne-31\examples\verify_mds_mix.rs:2:16
+  |
+2 | use p3_field::{Field, PrimeCharacteristicRing};
+  |                ^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `mds_light_permutation`
+ --> mersenne-31\examples\verify_mds_mix.rs:4:29
+  |
+4 | use p3_poseidon2::{MDSMat4, mds_light_permutation};
+  |                             ^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `as_canonical_u32` found for reference `&Mersenne31` in the current scope
+  --> mersenne-31\examples\verify_mds_mix.rs:27:69
+   |
+27 |         println!("// Input:  {:?}", original_input.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+   |                                                                     ^^^^^^^^^^^^^^^^
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `PrimeField32` which provides `as_canonical_u32` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use p3_field::PrimeField32;
+   |
+help: there is a method `as_canonical_u64` with a similar name
+   |
+27 -         println!("// Input:  {:?}", original_input.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+27 +         println!("// Input:  {:?}", original_input.iter().map(|x| x.as_canonical_u64()).collect::<Vec<_>>());
+   |
+
+error[E0599]: no method named `as_canonical_u32` found for reference `&Mersenne31` in the current scope
+  --> mersenne-31\examples\verify_mds_mix.rs:28:60
+   |
+28 |         println!("// Output: {:?}", input.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+   |                                                            ^^^^^^^^^^^^^^^^
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `PrimeField32` which provides `as_canonical_u32` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use p3_field::PrimeField32;
+   |
+help: there is a method `as_canonical_u64` with a similar name
+   |
+28 -         println!("// Output: {:?}", input.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+28 +         println!("// Output: {:?}", input.iter().map(|x| x.as_canonical_u64()).collect::<Vec<_>>());
+   |
+
+error[E0599]: no method named `as_canonical_u32` found for reference `&Mersenne31` in the current scope
+  --> mersenne-31\examples\verify_mds_mix.rs:57:58
+   |
+57 |              println!("//  {:?}", chunk.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+   |                                                          ^^^^^^^^^^^^^^^^
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `PrimeField32` which provides `as_canonical_u32` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use p3_field::PrimeField32;
+   |
+help: there is a method `as_canonical_u64` with a similar name
+   |
+57 -              println!("//  {:?}", chunk.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+57 +              println!("//  {:?}", chunk.iter().map(|x| x.as_canonical_u64()).collect::<Vec<_>>());
+   |
+
+error[E0599]: no method named `as_canonical_u32` found for reference `&Mersenne31` in the current scope
+  --> mersenne-31\examples\verify_mds_mix.rs:61:58
+   |
+61 |              println!("//  {:?}", chunk.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+   |                                                          ^^^^^^^^^^^^^^^^
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: trait `PrimeField32` which provides `as_canonical_u32` is implemented but not in scope; perhaps you want to import it
+   |
+ 2 + use p3_field::PrimeField32;
+   |
+help: there is a method `as_canonical_u64` with a similar name
+   |
+61 -              println!("//  {:?}", chunk.iter().map(|x| x.as_canonical_u32()).collect::<Vec<_>>());
+61 +              println!("//  {:?}", chunk.iter().map(|x| x.as_canonical_u64()).collect::<Vec<_>>());
+   |
+
+For more information about this error, try `rustc --explain E0599`.
+warning: `p3-mersenne-31` (example "verify_mds_mix") generated 2 warnings
+error: could not compile `p3-mersenne-31` (example "verify_mds_mix") due to 4 previous errors; 2 warnings emitted

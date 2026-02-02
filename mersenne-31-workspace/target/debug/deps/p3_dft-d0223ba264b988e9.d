@@ -1,0 +1,15 @@
+/mnt/g/desktop/M31POESEIDON2/mersenne-31-workspace/target/debug/deps/p3_dft-d0223ba264b988e9.d: /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/lib.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/butterflies.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/naive.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_bowers.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit_parallel.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_small_batch.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/traits.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/util.rs
+
+/mnt/g/desktop/M31POESEIDON2/mersenne-31-workspace/target/debug/deps/libp3_dft-d0223ba264b988e9.rlib: /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/lib.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/butterflies.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/naive.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_bowers.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit_parallel.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_small_batch.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/traits.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/util.rs
+
+/mnt/g/desktop/M31POESEIDON2/mersenne-31-workspace/target/debug/deps/libp3_dft-d0223ba264b988e9.rmeta: /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/lib.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/butterflies.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/naive.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_bowers.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit_parallel.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_small_batch.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/traits.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/util.rs
+
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/lib.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/butterflies.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/naive.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_bowers.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_dit_parallel.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/radix_2_small_batch.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/traits.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/dft/src/util.rs:

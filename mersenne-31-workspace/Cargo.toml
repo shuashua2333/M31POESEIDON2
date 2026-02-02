@@ -1,0 +1,29 @@
+[package]
+name = "p3-workspace-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+p3-challenger = { path = "../Plonky3-main/Plonky3-main/challenger" }
+p3-dft = { path = "../Plonky3-main/Plonky3-main/dft" }
+p3-field = { path = "../Plonky3-main/Plonky3-main/field" }
+p3-matrix = { path = "../Plonky3-main/Plonky3-main/matrix" }
+p3-mds = { path = "../Plonky3-main/Plonky3-main/mds" }
+p3-poseidon2 = { path = "../Plonky3-main/Plonky3-main/poseidon2" }
+p3-symmetric = { path = "../Plonky3-main/Plonky3-main/symmetric" }
+p3-util = { path = "../Plonky3-main/Plonky3-main/util" }
+p3-mersenne-31 = { path = "../Plonky3-main/Plonky3-main/mersenne-31" }
+
+itertools = "0.12"
+num-bigint = "0.4"
+paste = "1.0"
+rand = "0.9.0"
+serde = { version = "1.0", features = ["derive"] }
+
+[dev-dependencies]
+criterion = "0.5"
+rand_xoshiro = "0.7.0"
+
+[[example]]
+name = "verify_mds_mix"
+path = "examples/verify_mds_mix.rs"

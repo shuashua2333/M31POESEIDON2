@@ -1,0 +1,360 @@
+﻿cargo :     Checking p3-merse
+nne-31-test v0.4.2 (G:\deskto
+p\M31POESEIDON2\Plonky3-main\
+Plonky3-main\mersenne-31-work
+space)
+所在位置 行:1 字符: 1
++ cargo check -p p3-mersenne-
+31-test --example m31_poseido
+n2_gen 2> err ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (    Che  
+  cking p3...e-31-workspac   
+ e):String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+error[E0432]: unresolved impo
+rt `p3_field::AbstractField`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:1
+:16
+  |
+1 | use p3_field::{AbstractFi
+eld, Field, PrimeField32, Pri
+meField};
+  |                ^^^^^^^^^^
+^^^ no `AbstractField` in the
+ root
+
+warning: unused imports: `Fie
+ld` and `PrimeField`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:1
+:31
+  |
+1 | use p3_field::{AbstractFi
+eld, Field, PrimeField32, Pri
+meField};
+  |                          
+     ^^^^^                ^^^
+^^^^^^^
+  |
+  = note: `#[warn(unused_impo
+rts)]` (part of `#[warn(unuse
+d)]`) on by default
+
+warning: unused imports: `Pos
+eidon2ExternalLayerMersenne31
+` and `Poseidon2InternalLayer
+Mersenne31`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:2
+:39
+  |
+2 | use p3_mersenne_31_test::
+{Mersenne31, Poseidon2Externa
+lLayerMersenne31, Poseidon2In
+ternalLayerMersenne31};
+  |                          
+             ^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^  ^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Ext
+ernalLayerConstructor` and `I
+nternalLayerConstructor`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:3
+:44
+  |
+3 | use p3_poseidon2::{Extern
+alLayerConstants, ExternalLay
+erConstructor, InternalLayerC
+onstructor, MDSMat4, mds_ligh
+t_permutation, poseidon2_...
+  |                          
+                  ^^^^^^^^^^^
+^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+^^^^^^^^^^
+
+warning: unused import: `p3_s
+ymmetric::Permutation`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:4
+:5
+  |
+4 | use p3_symmetric::Permuta
+tion; 
+  |     ^^^^^^^^^^^^^^^^^^^^^
+^^^^
+
+error[E0599]: no function or 
+associated item named `from_c
+anonical_u32` found for struc
+t `Mersenne31` in the current
+ scope
+   --> mersenne-31-workspace\
+examples\m31_poseidon2_gen.rs
+:23:17
+    |
+ 23 |     Mersenne31::from_ca
+nonical_u32(val_u32)
+    |                 ^^^^^^^
+^^^^^^^^^^^ function or assoc
+iated item not found in `Mers
+enne31`
+    |
+note: if you're trying to bui
+ld a new `Mersenne31` conside
+r using one of the following 
+associated functions:
+      Mersenne31::new
+      Mersenne31::new_checked
+   --> G:\desktop\M31POESEIDO
+N2\Plonky3-main\Plonky3-main\
+mersenne-31-workspace\src\mer
+senne_31.rs:44:5
+    |
+ 44 |     pub const fn new(va
+lue: u32) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+...
+ 62 |     pub const fn new_ch
+ecked(value: u32) -> Option<S
+elf> {
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^
+help: there is a method `as_c
+anonical_u32` with a similar 
+name, but with different argu
+ments
+   --> G:\desktop\M31POESEIDO
+N2\Plonky3-main\Plonky3-main\
+field\src\field.rs:906:5
+    |
+906 |     fn as_canonical_u32
+(&self) -> u32;
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
+
+error[E0599]: no method named
+ `exp_u64` found for struct `
+Mersenne31` in the current sc
+ope
+   --> mersenne-31-workspace\
+examples\m31_poseidon2_gen.rs
+:53:14
+    |
+ 53 |     *x = val.exp_u64(5)
+;
+    |              ^^^^^^^
+    |
+   ::: G:\desktop\M31POESEIDO
+N2\Plonky3-main\Plonky3-main\
+field\src\field.rs:219:8
+    |
+219 |     fn exp_u64(&self, p
+ower: u64) -> Self {
+    |        ------- the meth
+od is available for `Mersenne
+31` here
+    |
+    = help: items from traits
+ can only be used if the trai
+t is in scope
+help: trait `PrimeCharacteris
+ticRing` which provides `exp_
+u64` is implemented but not i
+n scope; perhaps you want to 
+import it
+    |
+  1 + use p3_field::PrimeChar
+acteristicRing;
+    |
+help: there is a method `div_
+2exp_u64` with a similar name
+    |
+ 53 |     *x = val.div_2exp_u
+64(5);
+    |              +++++
+
+error[E0599]: the method `sam
+ple_iter` exists for struct `
+Xoroshiro128Plus`, but its tr
+ait bounds were not satisfied
+  --> mersenne-31-workspace\e
+xamples\m31_poseidon2_gen.rs:
+61:51
+   |
+61 |     let internal_constan
+ts: Vec<Mersenne31> = rng.sam
+ple_iter(StandardUniform).tak
+e(rounds_p).collect();
+   |                         
+                          ^^^
+^^^^^^^^
+   |
+  ::: C:\Users\21670\.cargo\r
+egistry\src\index.crates.io-1
+949cf8c6b5b557f\rand_xoshiro-
+0.7.0\src\xoroshiro128plus.rs
+:27:1
+   |
+27 | pub struct Xoroshiro128P
+lus {
+   | ------------------------
+--- doesn't satisfy `Xoroshir
+o128Plus: rand::distr::Distri
+bution<_>`
+   |
+   = note: the following trai
+t bounds were not satisfied:
+           `Xoroshiro128Plus:
+ rand::distr::Distribution<_>
+`
+           which is required 
+by `&Xoroshiro128Plus: rand::
+distr::Distribution<_>`
+   = help: items from traits 
+can only be used if the trait
+ is in scope
+help: trait `Rng` which provi
+des `sample_iter` is implemen
+ted but not in scope; perhaps
+ you want to import it
+   |
+ 1 + use rand::Rng;
+   |
+
+error[E0599]: no function or 
+associated item named `from_c
+anonical_u32` found for struc
+t `Mersenne31` in the current
+ scope
+   --> mersenne-31-workspace\
+examples\m31_poseidon2_gen.rs
+:105:81
+    |
+105 |     let case2_input: [M
+ersenne31; WIDTH] = core::arr
+ay::from_fn(|i| Mersenne31::f
+rom_canonical_u32(case2_input
+_u32[i]));
+    |                        
+                             
+                            ^
+^^^^^^^^^^^^^^^^^ function or
+ associated item not found in
+ `Mersenne31`
+    |
+note: if you're trying to bui
+ld a new `Mersenne31` conside
+r using one of the following 
+associated functions:
+      Mersenne31::new
+      Mersenne31::new_checked
+   --> G:\desktop\M31POESEIDO
+N2\Plonky3-main\Plonky3-main\
+mersenne-31-workspace\src\mer
+senne_31.rs:44:5
+    |
+ 44 |     pub const fn new(va
+lue: u32) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+...
+ 62 |     pub const fn new_ch
+ecked(value: u32) -> Option<S
+elf> {
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^
+help: there is a method `as_c
+anonical_u32` with a similar 
+name, but with different argu
+ments
+   --> G:\desktop\M31POESEIDO
+N2\Plonky3-main\Plonky3-main\
+field\src\field.rs:906:5
+    |
+906 |     fn as_canonical_u32
+(&self) -> u32;
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
+
+error[E0599]: no function or 
+associated item named `from_c
+anonical_u32` found for struc
+t `Mersenne31` in the current
+ scope
+   --> mersenne-31-workspace\
+examples\m31_poseidon2_gen.rs
+:115:81
+    |
+115 |     let case1_input: [M
+ersenne31; WIDTH] = core::arr
+ay::from_fn(|i| Mersenne31::f
+rom_canonical_u32(case1_input
+_u32[i]));
+    |                        
+                             
+                            ^
+^^^^^^^^^^^^^^^^^ function or
+ associated item not found in
+ `Mersenne31`
+    |
+note: if you're trying to bui
+ld a new `Mersenne31` conside
+r using one of the following 
+associated functions:
+      Mersenne31::new
+      Mersenne31::new_checked
+   --> G:\desktop\M31POESEIDO
+N2\Plonky3-main\Plonky3-main\
+mersenne-31-workspace\src\mer
+senne_31.rs:44:5
+    |
+ 44 |     pub const fn new(va
+lue: u32) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
+...
+ 62 |     pub const fn new_ch
+ecked(value: u32) -> Option<S
+elf> {
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^
+help: there is a method `as_c
+anonical_u32` with a similar 
+name, but with different argu
+ments
+   --> G:\desktop\M31POESEIDO
+N2\Plonky3-main\Plonky3-main\
+field\src\field.rs:906:5
+    |
+906 |     fn as_canonical_u32
+(&self) -> u32;
+    |     ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
+
+Some errors have detailed exp
+lanations: E0432, E0599.
+For more information about an
+ error, try `rustc --explain 
+E0432`.
+warning: `p3-mersenne-31-test
+` (example "m31_poseidon2_gen
+") generated 4 warnings
+error: could not compile `p3-
+mersenne-31-test` (example "m
+31_poseidon2_gen") due to 6 p
+revious errors; 4 warnings em
+itted

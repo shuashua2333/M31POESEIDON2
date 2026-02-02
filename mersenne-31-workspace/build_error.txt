@@ -1,0 +1,86 @@
+﻿cargo :    Compiling p3-work
+space-test v0.1.0 (G:\deskto
+p\M31POESEIDON2\mersenne-31-
+workspace)
+所在位置 行:1 字符: 1
++ cargo build --example gen_
+round_test_vectors 2>&1 | Ou
+t-File -FilePat ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          
+    : NotSpecified: (   Co  
+  mpiling p3...e-31-works   
+ pace):String) [], Remot    
+eException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+warning: unused import: `Fie
+ld`
+ --> examples\gen_round_test
+_vectors.rs:4:16
+  |
+4 | use p3_field::{Field, Pr
+imeCharacteristicRing, Prime
+Field32};
+  |                ^^^^^
+  |
+  = note: `#[warn(unused_imp
+orts)]` (part of `#[warn(unu
+sed)]`) on by default
+
+error[E0616]: field `value` 
+of struct `Mersenne31` is pr
+ivate
+   --> examples\gen_round_te
+st_vectors.rs:251:57
+    |
+251 |     writeln!(file, "Ro
+und Constant: {}", round_con
+stant.value).unwrap();
+    |                       
+                            
+      ^^^^^ private field
+
+error[E0616]: field `value` 
+of struct `Mersenne31` is pr
+ivate
+   --> examples\gen_round_te
+st_vectors.rs:256:77
+    |
+256 |     writeln!(file, "Af
+ter Add RC (state[0]): {}", 
+intermediates.after_add_0.va
+lue).unwrap();
+    |                       
+                            
+                          ^^
+^^^ private field
+
+error[E0616]: field `value` 
+of struct `Mersenne31` is pr
+ivate
+   --> examples\gen_round_te
+st_vectors.rs:257:77
+    |
+257 |     writeln!(file, "Af
+ter S-Box (state[0]): {}", i
+ntermediates.after_sbox_0.va
+lue).unwrap();
+    |                       
+                            
+                          ^^
+^^^ private field
+
+For more information about t
+his error, try `rustc --expl
+ain E0616`.
+warning: `p3-workspace-test`
+ (example "gen_round_test_ve
+ctors") generated 1 warning
+error: could not compile `p3
+-workspace-test` (example "g
+en_round_test_vectors") due 
+to 3 previous errors; 1 warn
+ing emitted

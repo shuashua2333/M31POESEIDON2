@@ -1,0 +1,21 @@
+G:\desktop\M31POESEIDON2\mersenne-31-workspace\target\debug\deps\p3_field-0d42471091324292.d: G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\lib.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\array.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\batch_inverse.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\coset.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\exponentiation.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\mod.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\binomial_extension.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\complex.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\packed_binomial_extension.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\field.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\helpers.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\integers.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\op_assign_macros.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\mod.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\interleaves.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\packed_traits.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\no_packing.rs
+
+G:\desktop\M31POESEIDON2\mersenne-31-workspace\target\debug\deps\libp3_field-0d42471091324292.rmeta: G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\lib.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\array.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\batch_inverse.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\coset.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\exponentiation.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\mod.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\binomial_extension.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\complex.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\packed_binomial_extension.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\field.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\helpers.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\integers.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\op_assign_macros.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\mod.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\interleaves.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\packed_traits.rs G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\no_packing.rs
+
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\lib.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\array.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\batch_inverse.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\coset.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\exponentiation.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\mod.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\binomial_extension.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\complex.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\extension\packed_binomial_extension.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\field.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\helpers.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\integers.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\op_assign_macros.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\mod.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\interleaves.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\packed_traits.rs:
+G:\desktop\M31POESEIDON2\Plonky3-main\Plonky3-main\field\src\packed\no_packing.rs:

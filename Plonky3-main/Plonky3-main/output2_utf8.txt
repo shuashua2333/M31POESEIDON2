@@ -1,0 +1,194 @@
+﻿cargo :    Compiling p3-merse
+nne-31-test v0.4.2 (G:\deskto
+p\M31POESEIDON2\Plonky3-main\
+Plonky3-main\mersenne-31-work
+space)
+所在位置 行:1 字符: 1
++ cargo run -p p3-mersenne-31
+-test --example m31_poseidon2
+_gen > output ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (   Comp  
+  iling p3...e-31-workspac   
+ e):String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+warning: unused imports: `Fie
+ld` and `PrimeField`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:1
+:16
+  |
+1 | use p3_field::{Field, Pri
+meField32, PrimeField, PrimeC
+haracteristicRing};
+  |                ^^^^^     
+           ^^^^^^^^^^
+  |
+  = note: `#[warn(unused_impo
+rts)]` (part of `#[warn(unuse
+d)]`) on by default
+
+warning: unused imports: `Pos
+eidon2ExternalLayerMersenne31
+` and `Poseidon2InternalLayer
+Mersenne31`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:2
+:39
+  |
+2 | use p3_mersenne_31_test::
+{Mersenne31, Poseidon2Externa
+lLayerMersenne31, Poseidon2In
+ternalLayerMersenne31};
+  |                          
+             ^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^  ^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Ext
+ernalLayerConstructor` and `I
+nternalLayerConstructor`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:3
+:44
+  |
+3 | use p3_poseidon2::{Extern
+alLayerConstants, ExternalLay
+erConstructor, InternalLayerC
+onstructor, MDSMat4, mds_ligh
+t_permutation, poseidon2_...
+  |                          
+                  ^^^^^^^^^^^
+^^^^^^^^^^^^^  ^^^^^^^^^^^^^^
+^^^^^^^^^^
+
+warning: unused import: `p3_s
+ymmetric::Permutation`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:4
+:5
+  |
+4 | use p3_symmetric::Permuta
+tion; 
+  |     ^^^^^^^^^^^^^^^^^^^^^
+^^^^
+
+warning: unused import: `Dist
+ribution`
+ --> mersenne-31-workspace\ex
+amples\m31_poseidon2_gen.rs:7
+:19
+  |
+7 | use rand::distr::{Distrib
+ution, StandardUniform};
+  |                   ^^^^^^^
+^^^^^
+
+warning: unused variable: `r`
+  --> mersenne-31-workspace\e
+xamples\m31_poseidon2_gen.rs:
+69:10
+   |
+69 |     for (r, consts) in i
+nitial_consts.iter().enumerat
+e() {
+   |          ^ help: if this
+ is intentional, prefix it wi
+th an underscore: `_r`
+   |
+   = note: `#[warn(unused_var
+iables)]` (part of `#[warn(un
+used)]`) on by default
+
+warning: unused variable: `r`
+  --> mersenne-31-workspace\e
+xamples\m31_poseidon2_gen.rs:
+78:10
+   |
+78 |     for (r, c) in intern
+al_constants.iter().enumerate
+() {
+   |          ^ help: if this
+ is intentional, prefix it wi
+th an underscore: `_r`
+
+warning: unused variable: `r`
+  --> mersenne-31-workspace\e
+xamples\m31_poseidon2_gen.rs:
+86:10
+   |
+86 |     for (r, consts) in t
+erminal_consts.iter().enumera
+te() {
+   |          ^ help: if this
+ is intentional, prefix it wi
+th an underscore: `_r`
+
+warning: function `print_stat
+e` is never used
+  --> mersenne-31-workspace\e
+xamples\m31_poseidon2_gen.rs:
+13:4
+   |
+13 | fn print_state(label: &s
+tr, state: &[Mersenne31; WIDT
+H]) {
+   |    ^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)
+]` (part of `#[warn(unused)]`
+) on by default
+
+warning: `p3-mersenne-31-test
+` (example "m31_poseidon2_gen
+") generated 9 warnings (run 
+`cargo fix --example "m31_pos
+eidon2_gen" -p p3-mersenne-31
+-test` to apply 7 suggestions
+)
+    Finished `dev` profile [u
+noptimized + debuginfo] targe
+t(s) in 0.58s
+     Running `target\debug\ex
+amples\m31_poseidon2_gen.exe`
+=== Case 2 Result ===
+Index 0: 43074f9a
+Index 1: 7ed0a25c
+Index 2: 6d5258f1
+Index 3: 47fbd9a9
+Index 4: 70b8d58d
+Index 5: 0ea85fe4
+Index 6: 3a7d1cdf
+Index 7: 256350ae
+Index 8: 5b7d1579
+Index 9: 5e39812c
+Index 10: 34edc592
+Index 11: 5af93122
+Index 12: 20a6a2e9
+Index 13: 3d504bfe
+Index 14: 6b78ea87
+Index 15: 1341ad2d
+
+=== Case 1 Result ===
+expected_1[0]  = 31'h34ecac18;
+expected_1[1]  = 31'h41e09387;
+expected_1[2]  = 31'h62a4f1ff;
+expected_1[3]  = 31'h4fdc544d;
+expected_1[4]  = 31'h650902f6;
+expected_1[5]  = 31'h58219dea;
+expected_1[6]  = 31'h6227e044;
+expected_1[7]  = 31'h7f092d69;
+expected_1[8]  = 31'h00896716;
+expected_1[9]  = 31'h7e57d05a;
+expected_1[10]  = 31'h65718fb0;
+expected_1[11]  = 31'h0bb02216;
+expected_1[12]  = 31'h437f68b6;
+expected_1[13]  = 31'h551e058f;
+expected_1[14]  = 31'h518affa5;
+expected_1[15]  = 31'h60f6e959;

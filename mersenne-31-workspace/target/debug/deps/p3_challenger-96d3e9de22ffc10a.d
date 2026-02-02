@@ -1,0 +1,12 @@
+/mnt/g/desktop/M31POESEIDON2/mersenne-31-workspace/target/debug/deps/p3_challenger-96d3e9de22ffc10a.d: /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/lib.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/duplex_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/grinding_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/hash_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/multi_field_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/serializing_challenger.rs
+
+/mnt/g/desktop/M31POESEIDON2/mersenne-31-workspace/target/debug/deps/libp3_challenger-96d3e9de22ffc10a.rlib: /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/lib.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/duplex_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/grinding_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/hash_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/multi_field_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/serializing_challenger.rs
+
+/mnt/g/desktop/M31POESEIDON2/mersenne-31-workspace/target/debug/deps/libp3_challenger-96d3e9de22ffc10a.rmeta: /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/lib.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/duplex_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/grinding_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/hash_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/multi_field_challenger.rs /mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/serializing_challenger.rs
+
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/lib.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/duplex_challenger.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/grinding_challenger.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/hash_challenger.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/multi_field_challenger.rs:
+/mnt/g/desktop/M31POESEIDON2/Plonky3-main/Plonky3-main/challenger/src/serializing_challenger.rs:
