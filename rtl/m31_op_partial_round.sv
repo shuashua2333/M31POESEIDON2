@@ -47,18 +47,13 @@ module m31_op_partial_round #(
     logic [30:0] delay_regs [WIDTH-1:1][11:0]; // [Index][Depth]
     
     always_ff @(posedge clk) begin
-        if (!rst_n) begin
-            for (int i = 1; i < WIDTH; i++) begin
-                for (int k = 0; k < 12; k++) begin
-                    delay_regs[i][k] <= '0;
-                end
-            end
-        end else begin
-            for (int i = 1; i < WIDTH; i++) begin
-                delay_regs[i][0] <= state_i[i];
-                for (int k = 1; k < 12; k++) begin
-                    delay_regs[i][k] <= delay_regs[i][k-1];
-                end
+        // Optimization: Do NOT reset delay lines to allow Xilinx/Intel tools
+        // to infer Shift Register LUTs (SRL16/SRL32).
+        // Resetting them forces the use of individual Flip-Flops (~78k FFs).
+        for (int i = 1; i < WIDTH; i++) begin
+            delay_regs[i][0] <= state_i[i];
+            for (int k = 1; k < 12; k++) begin
+                delay_regs[i][k] <= delay_regs[i][k-1];
             end
         end
     end

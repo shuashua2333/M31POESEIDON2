@@ -19,21 +19,19 @@ module m31_sbox (
     
     // Step 1: x^2
     m31_t x2;
-    m31_mul u_mul_x2 (
+    m31_sqr u_sqr_x2 (
         .clk(clk),
         .rst_n(rst_n),
         .a_i(in_i),
-        .b_i(in_i),
         .res_o(x2)
     );
     
     // Step 2: x^4
     m31_t x4;
-    m31_mul u_mul_x4 (
+    m31_sqr u_sqr_x4 (
         .clk(clk),
         .rst_n(rst_n),
         .a_i(x2),
-        .b_i(x2),
         .res_o(x4)
     );
     
