@@ -10,12 +10,11 @@ module m31_sbox (
 
     // M31 S-Box: x^5
     // Pipelined implementation:
-    // 1. x^2
-    // 2. x^4 = (x^2)^2
-    // 3. x^5 = x^4 * x
+    // 1. x^2          (m31_sqr: 5 cycles)
+    // 2. x^4 = (x^2)^2 (m31_sqr: 5 cycles)
+    // 3. x^5 = x^4 * x (m31_mul: 5 cycles)
     
-    // Latency of m31_mul is 4 cycles.
-    // Total latency: 4 (x^2) + 4 (x^4) + 4 (x^5) = 12 cycles.
+    // Total latency: 5 (x^2) + 5 (x^4) + 5 (x^5) = 15 cycles.
     
     // Step 1: x^2
     m31_t x2;
@@ -35,26 +34,25 @@ module m31_sbox (
         .res_o(x4)
     );
     
-    // Step 3: Delay input x to match x^4 availability (8 cycles)
+    // Step 3: Delay input x to match x^4 availability (10 cycles)
+    // x^2 takes 5 cycles, x^4 takes another 5 cycles = 10 total
     m31_t x_delayed;
     
-    // 8-stage shift register for x
-    // Using simple behavioral SRL inference
-    logic [30:0] delay_line [7:0]; 
+    logic [30:0] delay_line [9:0]; // 10 stages
     
     always_ff @(posedge clk) begin
         if (!rst_n) begin
-            for (int i = 0; i < 8; i++) begin
+            for (int i = 0; i < 10; i++) begin
                 delay_line[i] <= '0;
             end
         end else begin
             delay_line[0] <= in_i;
-            for (int i=1; i<8; i++) begin
+            for (int i=1; i<10; i++) begin
                 delay_line[i] <= delay_line[i-1];
             end
         end
     end
-    assign x_delayed = delay_line[7];
+    assign x_delayed = delay_line[9];
 
     // Step 4: x^5 = x^4 * x
     m31_mul u_mul_x5 (
@@ -64,5 +62,7 @@ module m31_sbox (
         .b_i(x_delayed),
         .res_o(out_o)
     );
+
+    // Total Latency: 5 (x^2) + 5 (x^4) + 5 (x^5) = 15 cycles
 
 endmodule

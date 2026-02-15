@@ -10,36 +10,46 @@ module m31_sqr (
 
     // M31 Squaring: A * A mod (2^31 - 1)
     // Optimized version of m31_mul for squaring.
-    // Latency: 4 Cycles (Matching m31_mul for now, but enabling synthesis optimizations)
+    // Latency: 5 Cycles (Matching m31_mul)
+    // Pipeline: InputReg → Square → SquarePipe → Reduce1 → Reduce2
     
-    // Stage 1 & 2: Squaring
-    logic [61:0] sqr_st0;
-    logic [61:0] sqr_st1;
+    // --- Stage 0: Register Input ---
+    logic [30:0] a_reg;
     
     always_ff @(posedge clk) begin
         if (!rst_n) begin
-            sqr_st0 <= '0;
-            sqr_st1 <= '0;
+            a_reg <= '0;
         end else begin
-            // Stage 0: Square
-            sqr_st0 <= {31'b0, a_i} * {31'b0, a_i};
-            // Stage 1: Pipeline
-            sqr_st1 <= sqr_st0;
+            a_reg <= a_i;
         end
     end
     
-    // Stage 3: Split & Add (Reduction Step 1)
+    // --- Stage 1 & 2: Squaring ---
+    logic [61:0] sqr_st1;
+    logic [61:0] sqr_st2;
+    
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            sqr_st1 <= '0;
+            sqr_st2 <= '0;
+        end else begin
+            sqr_st1 <= {31'b0, a_reg} * {31'b0, a_reg};
+            sqr_st2 <= sqr_st1;
+        end
+    end
+    
+    // --- Stage 3: Split & Add (Reduction Step 1) ---
     logic [31:0] sum_st3;
     
     always_ff @(posedge clk) begin
         if (!rst_n) begin
             sum_st3 <= '0;
         end else begin
-            sum_st3 <= {1'b0, sqr_st1[61:31]} + {1'b0, sqr_st1[30:0]};
+            sum_st3 <= {1'b0, sqr_st2[61:31]} + {1'b0, sqr_st2[30:0]};
         end
     end
     
-    // Stage 4: Final Canonical Reduction
+    // --- Stage 4: Final Canonical Reduction ---
     m31_t res_st4;
     logic [30:0] sum_final;
     
@@ -47,7 +57,7 @@ module m31_sqr (
         if (!rst_n) begin
             res_st4 <= '0;
         end else begin
-             sum_final = sum_st3[30:0] + {30'd0, sum_st3[31]};
+            sum_final = sum_st3[30:0] + {30'd0, sum_st3[31]};
             
             if (sum_final == P_M31) begin
                 res_st4 <= '0;
@@ -58,5 +68,13 @@ module m31_sqr (
     end
 
     assign res_o = res_st4;
+
+    // Total Latency:
+    // cycle 0: a_reg (input register)
+    // cycle 1: sqr_st1 (square)
+    // cycle 2: sqr_st2 (square pipeline)
+    // cycle 3: sum_st3 (H + L reduction)
+    // cycle 4: res_st4 (canonical reduction)
+    // Output valid after 5 clocks.
 
 endmodule

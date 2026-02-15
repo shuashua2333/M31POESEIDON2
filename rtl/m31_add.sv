@@ -10,11 +10,9 @@ module m31_add (
 );
 
     // M31 Addition A + B mod (2^31 - 1)
+    // Latency: 1 cycle (registered output)
     // Optimization: End-around carry.
-    // sum_raw = A + B
-    // If sum_raw >= 2^31, we assume 2^31 == 1, so we add the carry back to the LSB.
     
-    // Stage 1: 32-bit Addition
     logic [31:0] sum_raw;
     logic [30:0] sum_folded;
     m31_t        res_comb;
@@ -34,7 +32,13 @@ module m31_add (
         end
     end
     
-    assign res_o = res_comb;
+    // Output register
+    always_ff @(posedge clk) begin
+        if (!rst_n)
+            res_o <= '0;
+        else
+            res_o <= res_comb;
+    end
 
 endmodule
 

@@ -2,6 +2,8 @@
 import m31_pkg::*;
 
 module m31_mds_4x4 (
+    input  logic       clk,
+    input  logic       rst_n,
     input  m31_t [3:0] state_i,
     output m31_t [3:0] state_o
 );
@@ -12,6 +14,8 @@ module m31_mds_4x4 (
     // [ 1 2 3 1 ]
     // [ 1 1 2 3 ]
     // [ 3 1 1 2 ]
+    //
+    // Latency: 1 cycle (registered output)
     
     // Helper function for modular addition A+B
     function automatic m31_t add(input m31_t a, input m31_t b);
@@ -25,38 +29,33 @@ module m31_mds_4x4 (
         return {a[29:0], a[30]};
     endfunction
 
-    // Intermediate signals based on Rust optimized implementation
+    // Combinational result
+    m31_t [3:0] result_comb;
+    
+    // Intermediate signals
     m31_t t01, t23, t0123;
     m31_t t01123, t01233;
     
-    // Logic
     always_comb begin
-        // let t01 = x[0] + x[1];
         t01 = add(state_i[0], state_i[1]);
-        
-        // let t23 = x[2] + x[3];
         t23 = add(state_i[2], state_i[3]);
-        
-        // let t0123 = t01 + t23;
         t0123 = add(t01, t23);
-        
-        // let t01123 = t0123 + x[1];
         t01123 = add(t0123, state_i[1]);
-        
-        // let t01233 = t0123 + x[3];
         t01233 = add(t0123, state_i[3]);
         
-        // x[3] = t01233 + 2*x[0];
-        state_o[3] = add(t01233, double(state_i[0]));
-        
-        // x[1] = t01123 + 2*x[2];
-        state_o[1] = add(t01123, double(state_i[2]));
-        
-        // x[0] = t01123 + t01;
-        state_o[0] = add(t01123, t01);
-        
-        // x[2] = t01233 + t23;
-        state_o[2] = add(t01233, t23);
+        result_comb[3] = add(t01233, double(state_i[0]));
+        result_comb[1] = add(t01123, double(state_i[2]));
+        result_comb[0] = add(t01123, t01);
+        result_comb[2] = add(t01233, t23);
+    end
+
+    // Pipeline register
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            state_o <= '0;
+        end else begin
+            state_o <= result_comb;
+        end
     end
 
 endmodule

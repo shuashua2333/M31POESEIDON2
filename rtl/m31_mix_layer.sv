@@ -4,17 +4,21 @@ import m31_pkg::*;
 module m31_mix_layer #(
     parameter int WIDTH = 16
 ) (
-    input  m31_t [WIDTH-1:0] state_i,
-    output m31_t [WIDTH-1:0] state_o
+    input  logic                clk,
+    input  logic                rst_n,
+    input  m31_t [WIDTH-1:0]    state_i,
+    output m31_t [WIDTH-1:0]    state_o
 );
 
     // Mixing Step:
     // 1. Calculate Sums[k] where k in 0..3
-    // sums[k] = sum(state_i[j] where j % 4 == k)
+    //    sums[k] = sum(state_i[j] where j % 4 == k)
     // 2. state_o[i] = state_i[i] + sums[i%4]
+    //
+    // Latency: 1 cycle (registered output)
 
     m31_t [3:0] sums;
-    m31_t [WIDTH-1:0] res;
+    m31_t [WIDTH-1:0] result_comb;
 
     // Helper function for add
     function automatic m31_t add_func(m31_t a, m31_t b);
@@ -36,10 +40,19 @@ module m31_mix_layer #(
 
         // Add Sums to State
         for (int i=0; i<WIDTH; i++) begin
-            res[i] = add_func(state_i[i], sums[i%4]);
+            result_comb[i] = add_func(state_i[i], sums[i%4]);
         end
     end
 
-    assign state_o = res;
+    // Pipeline register
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            for (int i = 0; i < WIDTH; i++) begin
+                state_o[i] <= '0;
+            end
+        end else begin
+            state_o <= result_comb;
+        end
+    end
 
 endmodule

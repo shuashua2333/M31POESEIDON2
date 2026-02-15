@@ -45,6 +45,8 @@ module m31_poseidon2_top #(
     generate
         for (i = 0; i < WIDTH; i += 4) begin : gen_pre_mds
             m31_mds_4x4 u_mds (
+                .clk(clk),
+                .rst_n(rst_n),
                 .state_i(state_i[i+3 : i]),
                 .state_o(mds_4x4_res[i+3 : i])
             );
@@ -55,6 +57,8 @@ module m31_poseidon2_top #(
     state_array_t pre_mds_mixed;
     
     m31_mix_layer #(.WIDTH(WIDTH)) u_mix_pre (
+        .clk(clk),
+        .rst_n(rst_n),
         .state_i(mds_4x4_res),
         .state_o(pre_mds_mixed)
     );

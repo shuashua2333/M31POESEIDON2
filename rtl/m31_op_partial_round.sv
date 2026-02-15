@@ -12,9 +12,11 @@ module m31_op_partial_round #(
 );
 
     // Partial Round:
-    // 1. Add Constant (state[0] only)
-    // 2. S-Box (state[0] only)
-    // 3. Internal Linear Layer (Global)
+    // 1. Add Constant (state[0] only)   -- 1 cycle  (m31_add registered)
+    // 2. S-Box (state[0] only)          -- 15 cycles (3x m31_sqr/mul @ 5cy)
+    // 3. Internal Linear Layer          -- 2 cycles  (pipelined: sum + apply)
+    //
+    // Total Latency: 1 + 15 + 2 = 18 cycles (matching full round)
 
     // --- Step 1 & 2: S-Box on Element 0 ---
     
@@ -36,23 +38,19 @@ module m31_op_partial_round #(
         .out_o(sbox_out_0)
     );
     
-    // For other elements, we need to match the Delay of the SBox (12 cycles)
-    // to align them with sbox_out_0 before the Linear Layer.
+    // --- Delay line for elements 1..WIDTH-1 ---
+    // add_rc latency = 1 cycle, S-Box latency = 15 cycles
+    // Total delay needed = 1 + 15 = 16 cycles
     
     m31_t [WIDTH-1:0] aligned_state;
     
-    // Delay Line for indices 1..WIDTH-1
-    // Depth: 12 cycles.
-    
-    logic [30:0] delay_regs [WIDTH-1:1][11:0]; // [Index][Depth]
+    logic [30:0] delay_regs [WIDTH-1:1][15:0]; // 16 stages
     
     always_ff @(posedge clk) begin
-        // Optimization: Do NOT reset delay lines to allow Xilinx/Intel tools
-        // to infer Shift Register LUTs (SRL16/SRL32).
-        // Resetting them forces the use of individual Flip-Flops (~78k FFs).
+        // No reset for SRL inference
         for (int i = 1; i < WIDTH; i++) begin
             delay_regs[i][0] <= state_i[i];
-            for (int k = 1; k < 12; k++) begin
+            for (int k = 1; k < 16; k++) begin
                 delay_regs[i][k] <= delay_regs[i][k-1];
             end
         end
@@ -61,15 +59,11 @@ module m31_op_partial_round #(
     assign aligned_state[0] = sbox_out_0;
     generate
         for (genvar i = 1; i < WIDTH; i++) begin : gen_align
-            assign aligned_state[i] = delay_regs[i][11];
+            assign aligned_state[i] = delay_regs[i][15];
         end
     endgenerate
     
-    // --- Step 3: Internal Linear Layer ---
-    // 1 + Diag(V)
-    // Sum = sum(aligned_state)
-    // Out[0] = Sum - 2*aligned_state[0]
-    // Out[i] = Sum + aligned_state[i] * 2^{Shift[i]}
+    // --- Step 3: Internal Linear Layer (Pipelined: 2 stages) ---
     
     function automatic m31_t add_func(m31_t a, m31_t b);
         logic [31:0] s = {1'b0, a} + {1'b0, b};
@@ -78,68 +72,80 @@ module m31_op_partial_round #(
     endfunction
     
     function automatic m31_t sub_func(m31_t a, m31_t b);
-        // a - b mod P. a + ~b.
         logic [30:0] b_inv = ~b;
         logic [31:0] s = {1'b0, a} + {1'b0, b_inv};
         logic [30:0] f = s[30:0] + {30'd0, s[31]};
         return (f == P_M31) ? '0 : f;
     endfunction
     
-    function automatic m31_t double(m31_t a);
+    function automatic m31_t double_func(m31_t a);
         return {a[29:0], a[30]};
     endfunction
 
-    // Shift function (cyclic)
     function automatic m31_t shift_calc(m31_t a, int sh);
-        // Concatenate to form a 62-bit window
         logic [61:0] wide = {a, a};
-        // Extract 31 bits starting from offset '31-sh' to perform cyclic shift LEFT (multiply by 2^sh)
-        // wide[sh +: 31] resulted in right shift/rotate.
-        // We need wide[(31-sh) +: 31].
         return wide[(31-sh) +: 31];
     endfunction
 
-    // 1. Calculate Sum
-    m31_t global_sum;
-    m31_t acc; // Moved outside always_comb for Vivado
+    // --- Pipeline Stage A (cycle 17): Compute global_sum + register aligned_state ---
+    // Use tree reduction for global_sum to reduce combinational depth
+    m31_t global_sum_reg;
+    m31_t global_sum_comb;
+    m31_t [WIDTH-1:0] aligned_state_reg;
     
-    always_comb begin
-        acc = '0;
-        for (int i=0; i<WIDTH; i++) begin
-            acc = add_func(acc, aligned_state[i]);
+    always_comb begin : comb_stage_a
+        automatic m31_t sum_part [3:0];
+        // 4-way partial sums (4 elements each) — depth = 4 adds
+        for (int k = 0; k < 4; k++) begin
+            sum_part[k] = '0;
+            for (int j = k*4; j < (k+1)*4 && j < WIDTH; j++) begin
+                sum_part[k] = add_func(sum_part[k], aligned_state[j]);
+            end
         end
-        global_sum = acc;
+        // Combine: 2 more adds — total depth = 6 adds (was 16)
+        global_sum_comb = add_func(add_func(sum_part[0], sum_part[1]),
+                                   add_func(sum_part[2], sum_part[3]));
     end
     
-    // 2. Output Logic
-    m31_t [WIDTH-1:0] res_comb;
-    integer sh; // Moved outside always_comb for Vivado
-    m31_t shifted_val; // Moved outside always_comb for Vivado
+    always_ff @(posedge clk) begin
+        if (!rst_n) begin
+            global_sum_reg <= '0;
+            for (int i = 0; i < WIDTH; i++)
+                aligned_state_reg[i] <= '0;
+        end else begin
+            global_sum_reg <= global_sum_comb;
+            aligned_state_reg <= aligned_state;
+        end
+    end
+    
+    // --- Pipeline Stage B (cycle 18): Compute per-element output ---
+    m31_t [WIDTH-1:0] res_comb_b;
+    integer sh;
+    m31_t shifted_val;
     
     always_comb begin
-        // Index 0: Sum - 2*S0
-        res_comb[0] = sub_func(global_sum, double(aligned_state[0]));
+        res_comb_b[0] = sub_func(global_sum_reg, double_func(aligned_state_reg[0]));
         
-        // Index 1..WIDTH-1
-        for (int i=1; i<WIDTH; i++) begin
+        for (int i = 1; i < WIDTH; i++) begin
             if (WIDTH == 16) sh = SHIFTS_16[i-1];
             else             sh = SHIFTS_24[i-1];
             
-            shifted_val = shift_calc(aligned_state[i], sh);
-            
-            res_comb[i] = add_func(global_sum, shifted_val);
+            shifted_val = shift_calc(aligned_state_reg[i], sh);
+            res_comb_b[i] = add_func(global_sum_reg, shifted_val);
         end
     end
     
-    // Register Output
+    // Output register (cycle 18)
     always_ff @(posedge clk) begin
         if (!rst_n) begin
             for (int i = 0; i < WIDTH; i++) begin
                 state_o[i] <= '0;
             end
         end else begin
-            state_o <= res_comb;
+            state_o <= res_comb_b;
         end
     end
+
+    // Total Latency: 1 (add_rc) + 15 (S-box) + 1 (sum + reg) + 1 (apply + reg) = 18 cycles
 
 endmodule

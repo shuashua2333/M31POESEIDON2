@@ -12,9 +12,12 @@ module m31_op_full_round #(
 );
 
     // Full Round:
-    // 1. Add Round Constants
-    // 2. S-Box (All elements)
-    // 3. MDS Light (4x4 + Mixing)
+    // 1. Add Round Constants   -- 1 cycle  (m31_add registered)
+    // 2. S-Box (All elements)  -- 15 cycles (3x m31_sqr/mul @ 5cy each)
+    // 3. MDS Light: 4x4 MDS    -- 1 cycle  (registered)
+    // 4. Mix Layer              -- 1 cycle  (registered)
+    //
+    // Total Latency: 1 + 15 + 1 + 1 = 18 cycles
 
     // --- Step 1 & 2: Add + SBox ---
     m31_t [WIDTH-1:0] sbox_out;
@@ -24,16 +27,14 @@ module m31_op_full_round #(
         for (i = 0; i < WIDTH; i++) begin : gen_sbox
             m31_t added;
             
-            // Instantiating Adder
             m31_add u_add_rc (
-                .clk(clk), // Actually add is comb in our def, but let's connect clk if we change it later
+                .clk(clk),
                 .rst_n(rst_n),
                 .a_i(state_i[i]),
-                .b_i(const_i[i]), // Constant is input
+                .b_i(const_i[i]),
                 .res_o(added)
             );
             
-            // Instantiating S-Box (12 cycle latency)
             m31_sbox u_sbox (
                 .clk(clk),
                 .rst_n(rst_n),
@@ -44,43 +45,28 @@ module m31_op_full_round #(
     endgenerate
     
     // --- Step 3: MDS Light ---
-    // A. Apply 4x4 MDS to chunks
-    // B. Calculate Sums
-    // C. Add Sums
-    
-    // This part can be pipelined or combinatorial.
-    // Given S-Box is deep (12 cycles), maybe we can make Linear layer combinatorial to save regs,
-    // or add 1 stage. Let's make it combinatorial for now, as shifts/adds are fast.
-    
-    // A. 4x4 MDS
+    // A. 4x4 MDS (1 cycle latency, registered output)
     m31_t [WIDTH-1:0] mds_main_out;
     
     generate
         for (i = 0; i < WIDTH; i += 4) begin : gen_mds4
             m31_mds_4x4 u_mds4 (
+                .clk(clk),
+                .rst_n(rst_n),
                 .state_i(sbox_out[i+3 : i]),
                 .state_o(mds_main_out[i+3 : i])
             );
         end
     endgenerate
     
-    // B & C. Mixing Step (Sums + Add)
-    m31_t [WIDTH-1:0] mix_out;
-    
+    // B. Mix Layer (1 cycle latency, registered output)
     m31_mix_layer #(.WIDTH(WIDTH)) u_mix_internal (
-        .state_i(mds_main_out), // Output from 4x4 MDS
-        .state_o(mix_out)
+        .clk(clk),
+        .rst_n(rst_n),
+        .state_i(mds_main_out),
+        .state_o(state_o)
     );
 
-    // Register Output
-    always_ff @(posedge clk) begin
-        if (!rst_n) begin
-            for (int i = 0; i < WIDTH; i++) begin
-                state_o[i] <= '0;
-            end
-        end else begin
-            state_o <= mix_out;
-        end
-    end
+    // Total Latency: 1 (add_rc) + 15 (S-box) + 1 (MDS 4x4) + 1 (Mix) = 18 cycles
 
 endmodule
